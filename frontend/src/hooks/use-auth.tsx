@@ -5,6 +5,7 @@ import { api, loginSchema } from "@shared/routes";
 import { z } from "zod";
 import { useLocation } from "wouter";
 import toast from "react-hot-toast";
+import { API_BASE } from "@/lib/api";
 
 // Custom error class to preserve HTTP status codes from API responses
 class ApiError extends Error {
@@ -36,7 +37,7 @@ function useLoginMutation() {
   return useMutation({
     mutationFn: async (credentials: LoginData) => {
 
-      const res = await fetch(api.auth.login.path, {
+      const res = await fetch(`${API_BASE}${api.auth.login.path}`, {
         method: api.auth.login.method,
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +118,7 @@ function useRegisterMutation() {
 
     mutationFn: async (data: RegisterData) => {
 
-      const res = await fetch(api.auth.register.path, {
+      const res = await fetch(`${API_BASE}${api.auth.register.path}`, {
         method: api.auth.register.method,
         headers: {
           "Content-Type": "application/json",
@@ -173,7 +174,7 @@ function useLogoutMutation() {
     mutationFn: async () => {
 
       try {
-        await fetch("/api/auth/logout", {
+        await fetch(`${API_BASE}/api/auth/logout`, {
           method: "POST",
         });
       } catch {
@@ -218,7 +219,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return null;
       }
 
-      const res = await fetch(api.auth.me.path, {
+      const res = await fetch(`${API_BASE}${api.auth.me.path}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -6,6 +6,7 @@ import { Link, useLocation, useSearch } from "wouter";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/use-auth";
+import { API_BASE } from "@/lib/api";
 
 export default function VerifyEmail() {
   const { user } = useAuth();
@@ -40,7 +41,7 @@ export default function VerifyEmail() {
     }
     setVerifying(true);
     try {
-      const res = await fetch("/api/auth/verify-email", {
+      const res = await fetch(`${API_BASE}/api/auth/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailFromUrl, code: otpCode }),
@@ -67,7 +68,7 @@ export default function VerifyEmail() {
     }
     setResending(true);
     try {
-      const res = await fetch("/api/auth/resend-verification", {
+      const res = await fetch(`${API_BASE}/api/auth/resend-verification`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: emailFromUrl }),

@@ -6,6 +6,7 @@ import { Link, useLocation, useSearch } from "wouter";
 import { Loader2, KeyRound, Eye, EyeOff } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/use-auth";
+import { API_BASE } from "@/lib/api";
 
 export default function ResetPassword() {
   const { user } = useAuth();
@@ -45,7 +46,7 @@ export default function ResetPassword() {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/reset-password", {
+      const res = await fetch(`${API_BASE}/api/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code: otpCode, newPassword }),

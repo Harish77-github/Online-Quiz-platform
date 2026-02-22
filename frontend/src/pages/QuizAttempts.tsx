@@ -159,7 +159,7 @@ export default function QuizAttempts() {
 
               const header = "Student Name,Email,Score,Total,Percentage,Violations,Time Taken,Status,Date";
 
-              const rows = attempts.map(a => {
+              const rows = attempts.map((a: any) => {
                 const percentage = Math.round((a.score / a.totalQuestions) * 100);
                 const status = a.isLocked ? "Locked" : a.isAutoSubmitted ? "Auto-Submitted" : a.terminated ? "Terminated" : "Completed";
                 const date = a.completedAt ? new Date(a.completedAt).toLocaleString() : "";
@@ -232,7 +232,7 @@ export default function QuizAttempts() {
 
                 ) : (
 
-                  attempts.map((attempt) => {
+                  attempts.map((attempt: any) => {
 
                     const percentage =
                       Math.round(

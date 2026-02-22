@@ -1,4 +1,5 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
+import { API_BASE } from "./api";
 
 /*
 Central auth header builder
@@ -40,7 +41,9 @@ export async function apiRequest(
   data?: unknown
 ): Promise<Response> {
 
-  const res = await fetch(url, {
+  const fullUrl = url.startsWith("/") ? `${API_BASE}${url}` : url;
+
+  const res = await fetch(fullUrl, {
     method,
     headers: getAuthHeaders(),
     body: data ? JSON.stringify(data) : undefined,
@@ -60,7 +63,10 @@ export const getQueryFn =
   <T>({ on401 }: { on401: UnauthorizedBehavior }): QueryFunction<T> =>
   async ({ queryKey }) => {
 
-    const res = await fetch(queryKey.join("/") as string, {
+    const rawUrl = queryKey.join("/") as string;
+    const fullUrl = rawUrl.startsWith("/") ? `${API_BASE}${rawUrl}` : rawUrl;
+
+    const res = await fetch(fullUrl, {
       headers: getAuthHeaders(),
     });
 

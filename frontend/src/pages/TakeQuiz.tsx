@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import toast from "react-hot-toast";
+import { API_BASE } from "@/lib/api";
 import { AlertTriangle, Loader2, Maximize2, AlertCircle, Timer, ShieldCheck } from "lucide-react";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogFooter, AlertDialogCancel } from "@/components/ui/alert-dialog";
 
@@ -189,7 +190,7 @@ export default function TakeQuiz() {
     }
     try {
       // Validate access code against backend
-      const res = await fetch(`/api/quizzes/${id}/validate-access-code`, {
+      const res = await fetch(`${API_BASE}/api/quizzes/${id}/validate-access-code`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

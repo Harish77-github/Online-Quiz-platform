@@ -6,6 +6,7 @@ import { Link, useLocation } from "wouter";
 import { Loader2, Mail } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/use-auth";
+import { API_BASE } from "@/lib/api";
 
 export default function ForgotPassword() {
   const { user } = useAuth();
@@ -24,7 +25,7 @@ export default function ForgotPassword() {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/send-reset-code", {
+      const res = await fetch(`${API_BASE}/api/auth/send-reset-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),

@@ -12,6 +12,7 @@ import { useLocation, Link } from "wouter";
 import { Loader2, UserPlus, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { API_BASE } from "@/lib/api";
 
 export default function Register() {
   const { registerMutation, user } = useAuth();
@@ -41,7 +42,7 @@ export default function Register() {
     if (data.role !== "faculty") {
       setSubmitting(true);
       try {
-        const res = await fetch("/api/auth/register", {
+        const res = await fetch(`${API_BASE}/api/auth/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
